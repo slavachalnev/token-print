@@ -22,6 +22,7 @@ text = "The quick brown fox jumps over the lazy dog."
 ct = ColoredTokenizer(tokenizer)
 ct(text)
 ```
+![Example](/assets/lazy_dog.png)
 
 ## Test
 ```bash
