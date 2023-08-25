@@ -8,6 +8,5 @@ setup(
         'termcolor',
     ],
     author='Sviatoslav Chalnev',
-    author_email='slava.chalnev@gmail.com',
     description='Display tokenized text.',
 )
