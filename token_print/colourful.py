@@ -4,16 +4,16 @@ from itertools import cycle
 
 
 class ColoredTokenizer:
-    def __init__(self, tokenizer, colors: List[str] = None):
+    def __init__(self, tokenizer, custom_colors: List[str] = None):
         if not hasattr(tokenizer, 'encode') or not hasattr(tokenizer, 'decode'):
             raise ValueError("The provided tokenizer object must have 'encode' and 'decode' methods.")
 
         self.tokenizer = tokenizer
 
-        if colors is None:
+        if custom_colors is None:
             self.colors = ['on_magenta', 'on_green', 'on_yellow', 'on_red', 'on_cyan']
         else:
-            self.colors = colors
+            self.colors = custom_colors
     
     def __call__(self, input_data: Any):
         self.print(input_data)

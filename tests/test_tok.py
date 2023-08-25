@@ -13,7 +13,7 @@ def test_custom_colors():
     tokenizer = AutoTokenizer.from_pretrained("gpt2")
     text = "The quick brown fox jumps over the lazy dog."
 
-    ct = ColoredTokenizer(tokenizer, colors=['on_green', 'on_red', 'on_blue'])
+    ct = ColoredTokenizer(tokenizer, custom_colors=['on_green', 'on_red', 'on_blue'])
     ct(text)
 
 def test_list_of_strings():
