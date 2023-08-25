@@ -26,5 +26,6 @@ ct(text)
 
 ## Test
 ```bash
+pip install -r requirements-test.txt
 pytest -s tests
 ```
