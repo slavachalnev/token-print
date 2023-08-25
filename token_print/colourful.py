@@ -30,6 +30,13 @@ class ColoredTokenizer:
                 self._print_batch_token_ids(input_data)
             else:
                 raise ValueError("Unsupported input type.")
+        elif hasattr(input_data, 'shape') and hasattr(input_data, 'tolist'):
+            if len(input_data.shape) == 1:
+                self._print_token_ids(input_data.tolist())
+            elif len(input_data.shape) == 2:
+                self._print_batch_token_ids(input_data.tolist())
+            else:
+                raise ValueError("Input must be 1D or 2D if it's a tensor-like object.")
         else:
             raise ValueError("Input data must be a string, list of strings, list of integers, or list of lists of integers.")
 
