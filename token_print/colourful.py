@@ -2,10 +2,6 @@ from termcolor import colored
 from itertools import cycle
 
 
-from transformers import AutoTokenizer
-from transformer_lens import HookedTransformer
-
-
 def print_colored_tokens(text: str, tokenizer):
     if not hasattr(tokenizer, 'encode'):
         raise ValueError("The provided tokenizer object must have a 'encode' method.")
@@ -24,10 +20,3 @@ def print_colored_tokens(text: str, tokenizer):
         color = next(color_iter)
         print(colored(token, on_color=color), end='')
     print() # New line at the end
-
-
-if __name__ == '__main__':
-    text = "The Eiffel Tower is located in Paris."
-    tokenizer = AutoTokenizer.from_pretrained("gpt2")
-
-    print_colored_tokens(text, tokenizer=tokenizer)
