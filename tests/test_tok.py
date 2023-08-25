@@ -1,5 +1,5 @@
 from transformers import AutoTokenizer
-from token_print.colourful import ColoredTokenizer
+from token_print import ColoredTokenizer
 
 
 def test_tokenization():
