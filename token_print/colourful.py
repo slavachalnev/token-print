@@ -15,16 +15,39 @@ class ColoredTokenizer:
         else:
             self.colors = colors
     
-    def __call__(self, text: str):
-        self.print(text=text)
+    def __call__(self, input_data: Any):
+        self.print(input_data)
+    
+    def print(self, input_data: Any):
+        if isinstance(input_data, str):
+            self._print_text(input_data)
+        elif isinstance(input_data, list):
+            if all(isinstance(item, str) for item in input_data):
+                self._print_batch_texts(input_data)
+            elif all(isinstance(item, int) for item in input_data):
+                self._print_token_ids(input_data)
+            elif all(isinstance(item, list) for item in input_data) and all(isinstance(sub_item, int) for item in input_data for sub_item in item):
+                self._print_batch_token_ids(input_data)
+            else:
+                raise ValueError("Unsupported input type.")
+        else:
+            raise ValueError("Input data must be a string, list of strings, list of integers, or list of lists of integers.")
 
-    def print(self, text: str):
+    def _print_text(self, text: str):
         input_ids = self.tokenizer.encode(text, add_special_tokens=False)
-        tokens = [self.tokenizer.decode([id], clean_up_tokenization_spaces=False) for id in input_ids]
-
+        self._print_token_ids(token_ids=input_ids)
+    
+    def _print_batch_texts(self, texts: List[str]):
+        for text in texts:
+            self._print_text(text=text)
+        
+    def _print_batch_token_ids(self, batch: List[List[int]]):
+        for token_ids in batch:
+            self._print_token_ids(token_ids=token_ids)
+    
+    def _print_token_ids(self, token_ids: List[int]):
+        tokens = [self.tokenizer.decode([id], clean_up_tokenization_spaces=False) for id in token_ids]
         color_iter = cycle(self.colors)
-
-        # Iterate through tokens and print them in corresponding colors
         for token in tokens:
             color = next(color_iter)
             print(colored(token, on_color=color), end='')
